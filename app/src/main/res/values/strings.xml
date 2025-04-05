@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">LRSDemo</string>
+    <string-array name="spinnerClients">
+        <item>Matlosana</item>
+        <item>City of Tshwane</item>
+        <item>Gamagara Municipality</item>
+        <item> Security</item>
+    </string-array>
+    <string-array name="spinnerProjects">
+        <item>House Building</item>
+        <item>Farm</item>
+        <item>Water Pumps</item>
+        <item>Schools</item>
+    </string-array>
+</resources>
