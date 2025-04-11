@@ -6,23 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#004AAD"
+    android:fitsSystemWindows="true"
     tools:context=".LeadingPage">
 
+    <!-- Title in Safe Area -->
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:fontFamily="sans-serif-black"
         android:text="Welcome to Mosekate Company"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/spinnerClient"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Spinner
         android:id="@+id/spinnerClient"
@@ -31,10 +32,9 @@
         android:layout_marginTop="144dp"
         android:background="@drawable/spinner_background"
         android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.7" />
 
     <Spinner
@@ -44,10 +44,9 @@
         android:layout_marginTop="84dp"
         android:background="@drawable/spinner_background"
         android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/spinnerClient"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.7" />
 
     <Button
@@ -60,11 +59,10 @@
         android:text="Go To"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerProject"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.055" />
 
     <TextView
@@ -75,11 +73,10 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/spinnerClient"
-        app:layout_constraintEnd_toEndOf="@+id/spinnerClient"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/spinnerClient"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerClient"
+        app:layout_constraintStart_toStartOf="@+id/spinnerClient"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerClient"
         app:layout_constraintVertical_bias="0.939" />
 
     <TextView
@@ -90,10 +87,9 @@
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/spinnerProject"
-        app:layout_constraintEnd_toEndOf="@+id/spinnerProject"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/spinnerProject"
         app:layout_constraintTop_toBottomOf="@+id/spinnerClient"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerProject"
+        app:layout_constraintStart_toStartOf="@+id/spinnerProject"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerProject"
         app:layout_constraintVertical_bias="0.885" />
 </androidx.constraintlayout.widget.ConstraintLayout>

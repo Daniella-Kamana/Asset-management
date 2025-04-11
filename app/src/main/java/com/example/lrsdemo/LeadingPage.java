@@ -1,5 +1,6 @@
 package com.example.lrsdemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,14 +24,16 @@ public class LeadingPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_leading_page);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
         selectClient = findViewById(R.id.spinnerClient);
         selectProject = findViewById(R.id.spinnerProject);
+        btnGo = findViewById(R.id.btnGo);
+
+        btnGo.setOnClickListener( v ->{
+            Intent intent = new Intent(LeadingPage.this, TabsActivity.class);
+            startActivity(intent);
+            finish();
+        });
 
         // create ArrayAdapter for Spinners
         ArrayAdapter<CharSequence> adapterClients = ArrayAdapter.createFromResource(

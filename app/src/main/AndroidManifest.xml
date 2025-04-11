@@ -13,6 +13,10 @@
         android:theme="@style/Theme.LRSDemo"
         tools:targetApi="31">
         <activity
+            android:name=".TabsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.LRSDemo" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
