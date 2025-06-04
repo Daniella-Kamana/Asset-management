@@ -12,39 +12,30 @@ import android.view.ViewGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link AssetFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * AssetFragment: shows assets for a particular client + project.
+ * Expects "client_id", "client_name", and "project_name" to have been passed in via setArguments().
  */
 public class AssetFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int clientId;
+    private String clientName;
+    private String projectName;
 
     public AssetFragment() {
         // Required empty public constructor
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AssetFragment.
+     * If you need a factory method that creates an AssetFragment with arguments,
+     * you can use this. However, since TabsActivity set the bundle via setArguments(...),
+     * you don’t strictly need this newInstance(...) method. It’s included for completeness.
      */
-    // TODO: Rename and change types and number of parameters
-    public static AssetFragment newInstance(String param1, String param2) {
+    public static AssetFragment newInstance(int clientId, String clientName, String projectName) {
         AssetFragment fragment = new AssetFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt("client_id",clientId);
+        args.putString("client_name",clientName);
+        args.putString("project_name",projectName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,25 +43,29 @@ public class AssetFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
+        // 1) Read the arguments that TabsActivity placed here
+        Bundle args = getArguments();
+        if (args != null) {
+            clientId = args.getInt("client_id",-1);
+            clientName = args.getString("client_name");
+            projectName = args.getString("project_name");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // 2) Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_asset, container, false);
 
         FloatingActionButton fabAddAsset = view.findViewById(R.id.fabAddAsset);
-        fabAddAsset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddAssetActivity.class);
-                startActivity(intent);
-            }
+        fabAddAsset.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), AddAssetActivity.class);
+            intent.putExtra("client_id", clientId);
+            intent.putExtra("client_name", clientName);
+            intent.putExtra("project_name", projectName);
+            startActivity(intent);
         });
         return view;
     }

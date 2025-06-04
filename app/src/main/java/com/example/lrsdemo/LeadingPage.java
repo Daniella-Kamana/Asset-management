@@ -47,16 +47,28 @@ public class LeadingPage extends AppCompatActivity {
         btnGo = findViewById(R.id.btnGo);
         requestQueue = Volley.newRequestQueue(this);
 
-        clientAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, clientList);
+        // 1) Set up spinner for clients
+        clientAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_dropdown_item,
+                clientList
+        );
         clientAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         selectClient.setAdapter(clientAdapter);
 
-        projectAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, projectList);
+        // 2) Set up spinner for projects
+        projectAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_dropdown_item,
+                projectList
+        );
         projectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         selectProject.setAdapter(projectAdapter);
 
+        // 3) Load clients from backend
         loadClients();
 
+        // 4) When user picks a client, load that client’s projects
         selectClient.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -64,28 +76,54 @@ public class LeadingPage extends AppCompatActivity {
                 loadProjects(selectedClient.id); // Load projects for selected client
             }
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+                //Nothing
+            }
         });
 
         selectProject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(LeadingPage.this, "Selected Project: "+ projectList.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(
+                        LeadingPage.this,
+                        "Selected Project: "+ projectList.get(position),
+                        Toast.LENGTH_SHORT
+                ).show();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
+        // 5) “Go To” button now reads both spinners and navigates
         btnGo.setOnClickListener( v ->{
+            Client selectedClientObj = (Client) selectClient.getSelectedItem();
+            String selectedProjectName = (String) selectProject.getSelectedItem();
+
+            if(selectedClientObj == null || selectedProjectName == null){
+                Toast.makeText(
+                        LeadingPage.this,
+                        "Please select both a client and a project",
+                        Toast.LENGTH_SHORT
+                ).show();
+                return;
+            }
+
             Intent intent = new Intent(LeadingPage.this, TabsActivity.class);
+            intent.putExtra("client_id", selectedClientObj.id);
+            intent.putExtra("client_name", selectedClientObj.name);
+            intent.putExtra("project_name", selectedProjectName);
             startActivity(intent);
             finish();
         });
     }
 
     private void loadClients() {
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, Base_URL  + "get_clients.php", null,
+        String url = Base_URL + "get_clients.php";
+        JsonArrayRequest request = new JsonArrayRequest(
+                Request.Method.GET,
+                url,
+                null,
                 response -> {
                     clientList.clear();
                     for (int i = 0; i < response.length(); i++) {
@@ -106,7 +144,10 @@ public class LeadingPage extends AppCompatActivity {
 
     private void loadProjects(int clientId){
         String url = Base_URL + "get_projects.php?client_id=" + clientId;
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+        JsonArrayRequest request = new JsonArrayRequest(
+                Request.Method.GET,
+                url,
+                null,
                 response -> {
                     projectList.clear();
                     for(int i = 0; i <  response.length(); i++) {
