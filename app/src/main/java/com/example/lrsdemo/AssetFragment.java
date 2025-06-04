@@ -1,5 +1,6 @@
 package com.example.lrsdemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +62,18 @@ public class AssetFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_asset, container, false);
+        View view = inflater.inflate(R.layout.fragment_asset, container, false);
+
+        FloatingActionButton fabAddAsset = view.findViewById(R.id.fabAddAsset);
+        fabAddAsset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddAssetActivity.class);
+                startActivity(intent);
+            }
+        });
+        return view;
     }
+
+
 }

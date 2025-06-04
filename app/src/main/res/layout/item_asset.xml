@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+
+    <!-- 1) ASSET IMAGE ON THE LEFT -->
+    <ImageView
+        android:id="@+id/imageAsset"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_foreground"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- 2) ASSET NAME (TITLE) -->
+    <TextView
+        android:id="@+id/textAssetName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Asset Name"
+        android:textSize="16sp"
+        android:textColor="#1F2937"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/imageAsset"
+        app:layout_constraintTop_toTopOf="@+id/imageAsset"
+        app:layout_constraintEnd_toStartOf="@+id/textQuantity"
+        android:maxLines="1"
+        android:ellipsize="end" />
+
+    <!-- 3) CATEGORY SUBTITLE BELOW THE TITLE -->
+    <TextView
+        android:id="@+id/textAssetCategory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Category: Furniture"
+        android:textSize="14sp"
+        android:textColor="#3B82F6"
+        app:layout_constraintStart_toStartOf="@id/textAssetName"
+        app:layout_constraintTop_toBottomOf="@id/textAssetName"
+        app:layout_constraintEnd_toStartOf="@+id/textQuantity"
+        android:maxLines="1"
+        android:ellipsize="end" />
+
+    <!-- 4) QUANTITY ON THE FAR RIGHT -->
+    <TextView
+        android:id="@+id/textQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"
+        android:textSize="16sp"
+        android:textColor="#1F2937"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageAsset"
+        app:layout_constraintBottom_toBottomOf="@+id/imageAsset" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
