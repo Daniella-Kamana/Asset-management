@@ -82,7 +82,7 @@
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusBottomEnd="8dp"
-                app:boxStrokeColor="#E5E7EB"
+                app:boxStrokeColor="@color/dodger_blue"
                 app:hintTextColor="#9CA3AF">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -117,7 +117,7 @@
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusBottomEnd="8dp"
-                app:boxStrokeColor="#E5E7EB"
+                app:boxStrokeColor="@color/dodger_blue"
                 app:hintTextColor="#9CA3AF"
                 app:endIconTint="#6B7280">
 
@@ -154,7 +154,7 @@
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusBottomEnd="8dp"
-                app:boxStrokeColor="#E5E7EB"
+                app:boxStrokeColor="@color/dodger_blue"
                 app:hintTextColor="#9CA3AF">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -190,7 +190,7 @@
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusBottomEnd="8dp"
-                app:boxStrokeColor="#E5E7EB"
+                app:boxStrokeColor="@color/dodger_blue"
                 app:hintTextColor="#9CA3AF">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -219,7 +219,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
-        app:backgroundTint="#0c7ff2"
+        app:backgroundTint="@color/dodger_blue"
         app:cornerRadius="8dp"
         style="@style/Widget.Material3.Button"
         app:layout_constraintBottom_toBottomOf="parent"
