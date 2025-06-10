@@ -18,10 +18,12 @@ public class TabsActivity extends AppCompatActivity {
     private int clientId;
     private String clientName;
     private String projectName;
-    LinearLayout tabAsset, tabExpense;
-    MaterialCardView assetIcon, expenseIcon;
-    TextView assetLabel, expenseLabel;
-    View tabIndicator;
+    private LinearLayout tabAsset, tabExpense;
+    private MaterialCardView assetIcon, expenseIcon;
+    private TextView assetLabel, expenseLabel;
+    private View tabIndicator;
+
+    private enum TAB {ASSET, EXPENSE}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +51,17 @@ public class TabsActivity extends AppCompatActivity {
         expenseLabel = tabExpense.findViewById(R.id.expenseLabel);
         tabIndicator = findViewById(R.id.tabIndicator);
 
-        // Load initial tab
-        selectTab("asset");
+        // Set listener
+        tabAsset.setOnClickListener(v -> selectTab(TAB.ASSET));
+        tabExpense.setOnClickListener(v -> selectTab(TAB.EXPENSE));
 
-        tabAsset.setOnClickListener(v -> selectTab("asset"));
-        tabExpense.setOnClickListener(v -> selectTab("expense"));
+        // Load initial tab
+        selectTab(TAB.ASSET);
     }
 
-    private void selectTab(String tabName) {
-        if ("asset".equals(tabName)) {
+    private void selectTab(TAB which) {
+        Fragment frag;
+        if (which == TAB.ASSET) {
             // 3) When loading AssetFragment, pass client & project in a Bundle
             AssetFragment assetFragment = new AssetFragment();
             Bundle bundle = new Bundle();
@@ -65,13 +69,14 @@ public class TabsActivity extends AppCompatActivity {
             bundle.putString("client_name",clientName);
             bundle.putString("project_name", projectName);
             assetFragment.setArguments(bundle);
+            frag = assetFragment;
 
-            loadFragment(new AssetFragment());
-
+            // Style the tabs
             assetIcon.setCardBackgroundColor(Color.parseColor("#0c7ff2")); // primary
             expenseIcon.setCardBackgroundColor(Color.parseColor("#9CA3AF")); // gray
             assetLabel.setTextColor(Color.parseColor("#0c7ff2")); // primary
             expenseLabel.setTextColor(Color.parseColor("#6B7280")); // gray_dark
+
             moveIndicatorTo(tabAsset);
         } else {
             // 4) When loading ExpenseFragment, pass the same extras if needed
@@ -81,8 +86,7 @@ public class TabsActivity extends AppCompatActivity {
             bundle.putString("client_name",clientName);
             bundle.putString("project_name",projectName);
             expenseFragment.setArguments(bundle);
-
-            loadFragment(new ExpenseFragment());
+            frag = expenseFragment;
 
             expenseIcon.setCardBackgroundColor(Color.parseColor("#0c7ff2")); // primary
             assetIcon.setCardBackgroundColor(Color.parseColor("#9CA3AF")); // gray
@@ -90,18 +94,17 @@ public class TabsActivity extends AppCompatActivity {
             assetLabel.setTextColor(Color.parseColor("#6B7280")); // gray_dark
             moveIndicatorTo(tabExpense);
         }
-    }
 
-    private void loadFragment(Fragment fragment) {
+        // Swap in the fragment you actually configured
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragmentContainer, fragment)
+                .replace(R.id.fragmentContainer,frag)
                 .commit();
     }
-
     private void moveIndicatorTo(View tab) {
+        float targetX = tab.getX() + (tab.getWidth() - tabIndicator.getWidth())/2f;
         tabIndicator.animate()
-                .x(tab.getX() + tab.getWidth() / 2f - tabIndicator.getWidth() / 2f)
+                .x(targetX)
                 .setDuration(200)
                 .start();
     }

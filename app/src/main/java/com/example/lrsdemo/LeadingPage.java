@@ -28,13 +28,15 @@ public class LeadingPage extends AppCompatActivity {
 
     Button btnGo;
     Spinner selectClient, selectProject;
-    ArrayAdapter<String> projectAdapter;
+    ArrayAdapter<Project> projectAdapter;
     ArrayAdapter<Client> clientAdapter;
     ArrayList<Client> clientList = new ArrayList<>();
-    ArrayList<String> projectList = new ArrayList<>();
+    ArrayList<Project> projectList = new ArrayList<>();
     RequestQueue requestQueue;
 
-    String Base_URL = "http://10.0.2.2/loss_reduction_backend/";
+    private static final String Base_URL = "http://10.0.2.2/loss_reduction_backend/";
+    private static final String GET_CLIENTS_URL = Base_URL + "get_clients.php";
+    private static final String GET_PROJECTS_URL = Base_URL + "get_projects.php?client_id=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,9 +100,9 @@ public class LeadingPage extends AppCompatActivity {
         // 5) “Go To” button now reads both spinners and navigates
         btnGo.setOnClickListener( v ->{
             Client selectedClientObj = (Client) selectClient.getSelectedItem();
-            String selectedProjectName = (String) selectProject.getSelectedItem();
+            Project selectedProjectObj = (Project) selectProject.getSelectedItem();
 
-            if(selectedClientObj == null || selectedProjectName == null){
+            if(selectedClientObj == null || selectedProjectObj == null){
                 Toast.makeText(
                         LeadingPage.this,
                         "Please select both a client and a project",
@@ -112,17 +114,17 @@ public class LeadingPage extends AppCompatActivity {
             Intent intent = new Intent(LeadingPage.this, TabsActivity.class);
             intent.putExtra("client_id", selectedClientObj.id);
             intent.putExtra("client_name", selectedClientObj.name);
-            intent.putExtra("project_name", selectedProjectName);
+            intent.putExtra("project_id", selectedProjectObj.id);
+            intent.putExtra("project_name", selectedProjectObj.name);
             startActivity(intent);
             finish();
         });
     }
 
     private void loadClients() {
-        String url = Base_URL + "get_clients.php";
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,
-                url,
+                GET_CLIENTS_URL,
                 null,
                 response -> {
                     clientList.clear();
@@ -143,7 +145,7 @@ public class LeadingPage extends AppCompatActivity {
     }
 
     private void loadProjects(int clientId){
-        String url = Base_URL + "get_projects.php?client_id=" + clientId;
+        String url = GET_PROJECTS_URL + clientId;
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,
                 url,
@@ -153,7 +155,9 @@ public class LeadingPage extends AppCompatActivity {
                     for(int i = 0; i <  response.length(); i++) {
                         try{
                             JSONObject project = response.getJSONObject(i);
-                            projectList.add(project.getString("name"));
+                            int id = project.getInt("id");
+                            String name = project.getString("name");
+                            projectList.add(new Project(id,name));
                         } catch (Exception e){
                             e.printStackTrace();
                         }

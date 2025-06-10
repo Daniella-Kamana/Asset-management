@@ -49,20 +49,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.7" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnGo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="160dp"
+        android:layout_height="65dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/rounded_button"
+        android:backgroundTint="@color/dodger_blue"
         android:padding="12dp"
         android:text="Go To"
-        android:textColor="@color/black"
+        android:textColor="@android:color/white"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerProject"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="18sp"
+        app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerProject"
         app:layout_constraintVertical_bias="0.055" />
 
     <TextView
